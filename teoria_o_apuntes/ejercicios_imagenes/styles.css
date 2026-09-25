@@ -1,0 +1,150 @@
+/* =========================
+   ESTILOS GENERALES
+   ========================= */
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f9;
+    color: #333;
+    line-height: 1.5;
+    margin: 0;
+    padding: 30px;
+}
+
+
+/* =========================
+   TÍTULO
+   ========================= */
+
+h1 {
+    text-align: center;
+    color: #2c3e50;
+    font-size: 32px;
+    margin-bottom: 30px;
+}
+
+
+/* =========================
+   LISTA DE COCHES
+   ========================= */
+
+ul {
+    list-style: none;
+    padding: 0;
+    margin: 0 auto;
+
+    max-width: 1000px;
+
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 25px;
+}
+
+
+/* =========================
+   CADA COCHE
+   ========================= */
+
+li {
+    background-color: white;
+
+    border-radius: 12px;
+    padding: 20px;
+
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+
+    text-align: center;
+
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+
+/* Efecto al pasar el ratón por encima */
+
+li:hover {
+    transform: translateY(-5px);
+
+    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.15);
+}
+
+
+/* =========================
+   DATOS DEL COCHE
+   ========================= */
+
+li p {
+    margin: 5px 0;
+    color: #555;
+}
+
+li p strong {
+    color: #2c3e50;
+}
+
+
+/* =========================
+   IMÁGENES
+   ========================= */
+
+img {
+    display: block;
+
+    width: 100%;
+    height: 200px;
+
+    object-fit: cover;
+
+    margin-top: 15px;
+
+    border-radius: 8px;
+}
+
+
+/* =========================
+   ENLACES
+   ========================= */
+
+a {
+    color: #3498db;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+a:hover {
+    color: #2980b9;
+    text-decoration: underline;
+}
+
+
+/* =========================
+   PANTALLAS MEDIANAS
+   ========================= */
+
+@media (max-width: 800px) {
+
+    ul {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+}
+
+
+/* =========================
+   MÓVILES
+   ========================= */
+
+@media (max-width: 550px) {
+
+    body {
+        padding: 15px;
+    }
+
+    h1 {
+        font-size: 25px;
+    }
+
+    ul {
+        grid-template-columns: 1fr;
+    }
+
+}

@@ -1,0 +1,42 @@
+/* 1. Estilos Generales de la Página */
+body {
+  font-family: 'Arial', sans-serif; /* Cambia el tipo de letra */
+  background-color: #f4f4f9;        /* Un color de fondo gris muy claro, suave para la vista */
+  color: #333333;                   /* Color del texto principal (gris oscuro en vez de negro puro) */
+  line-height: 1.6;                 /* Añade espacio entre líneas para que sea más fácil leer */
+  margin: 20px;                     /* Separa todo el contenido de los bordes de la pantalla */
+}
+
+/* 2. Título Principal */
+h1 {
+  color: #2c3e50;                   /* Un color azul marino elegante */
+  font-size: 32px;                  /* Tamaño de la letra grande */
+  border-bottom: 2px solid #2c3e50; /* Crea una línea decorativa debajo del título */
+  padding-bottom: 10px;             /* Separa el texto de la línea decorativa */
+  margin-bottom: 20px;              /* Separa el título del siguiente párrafo o lista */
+}
+
+/* 3. Listas (ul es la lista entera, li es cada elemento) */
+ul {
+  padding-left: 20px;               /* Da espacio a la izquierda para que los puntos no se corten */
+  margin-bottom: 20px;
+}
+
+li {
+  font-size: 18px;                  /* Tamaño de letra cómodo para leer */
+  margin-bottom: 8px;               /* Añade separación entre cada elemento de la lista */
+  color: #555555;                   /* Un tono un poco más suave que el del texto general */
+}
+
+/* 4. Enlaces (el "y tal" básico para navegar) */
+a {
+  color: #3498db;                   /* Color azul brillante para que se note que es un link */
+  text-decoration: none;            /* Quita el molesto subrayado por defecto */
+  font-weight: bold;                /* Hace que el texto resalte en negrita */
+}
+
+/* Efecto cuando pasas el ratón por encima del enlace */
+a:hover {
+  text-decoration: underline;       /* Vuelve a poner el subrayado solo al pasar el cursor */
+  color: #2980b9;                   /* Cambia a un azul un poco más oscuro */
+}
