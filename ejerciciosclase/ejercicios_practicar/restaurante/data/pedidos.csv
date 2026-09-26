@@ -1,0 +1,6 @@
+ID_Pedido,Cliente,Plato,Precio_Base,Descuento_Porcentaje,Estado
+101,Carlos Perez,Hamburguesa Doble,12.50,10,Pendiente
+102,Lucia Gomez,Pizza Carbonara,10.00,0,Cancelado
+103,Marcos Diaz,Sushi Variado,18.00,15,Pendiente
+104,Elena Ruiz,Ensalada Cesar,8.50,0,Entregado
+105,Javier Sanz,Costillas BBQ,15.00,20,Pendiente
