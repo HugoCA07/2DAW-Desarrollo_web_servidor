@@ -14,7 +14,8 @@
 
     <div class="tablero">
 
-        <?php foreach ($tablero as $fila): ?>
+        <!-- Comprobación para que no te diga de que la variable de que tablero no existía (He tenido que buscarlo) -->
+        <?php foreach (($tablero ?? []) as $fila): ?>
 
             <?php foreach ($fila as $casilla): ?>
 
