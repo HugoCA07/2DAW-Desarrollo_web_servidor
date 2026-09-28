@@ -26,4 +26,4 @@ $tablero = array(
     array('greysand', 'bridge2', 'greyrock4', 'greyrock5', 'greyrock6', 'greyrock7')
 );
 
-require 'template.tpl.php';
+include __DIR__ . '/template.tpl.php';
