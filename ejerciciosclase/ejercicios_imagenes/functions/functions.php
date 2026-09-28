@@ -16,13 +16,11 @@ function getCSVContentInArrayProfe(String $rutaCSV, String|null $nombreClave = n
     foreach ($lineasCSV as $valor) {
 
         $camposLinea = str_getcsv($valor, ',');
-
-        // Rellenamos los campos que falten con null
+        
         while (count($camposLinea) < count($encabezadoArray)) {
             $camposLinea[] = null;
         }
 
-        // Si hubiera más campos de los esperados, los ignoramos
         $camposLinea = array_slice($camposLinea, 0, count($encabezadoArray));
 
         $elemento = array_combine($encabezadoArray, $camposLinea);
