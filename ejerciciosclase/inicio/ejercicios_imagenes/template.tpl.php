@@ -29,23 +29,15 @@
     ?>
 
     <?php if (!empty($coches)): ?>
-
         <ul>
-
             <?php foreach ($coches as $valor): ?>
-
                 <?php
-
                 $imgURL = $valor['URL_IMAGEN'];
-
                 if (empty($imgURL)) {
                     $imgURL = $defaultURL;
                 }
-
                 ?>
-
                 <li>
-
                     <p>
                         <strong>Marca:</strong>
                         <?= htmlspecialchars($valor['Marca']) ?>
@@ -58,7 +50,7 @@
 
                     <p>
                         <strong>Color:</strong>
-                        <?=$valor['Color'] ?>
+                        <?= $valor['Color'] ?>
                     </p>
 
                     <p>
@@ -70,7 +62,6 @@
                         src="<?= $imgURL ?>"
                         alt="<?= $valor['Marca'] . ' ' . $valor['Modelo'] ?>"
                         width="250">
-
                 </li>
 
             <?php endforeach; ?>

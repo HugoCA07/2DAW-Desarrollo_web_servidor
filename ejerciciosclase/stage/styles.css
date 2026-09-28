@@ -1,0 +1,42 @@
+.tile {
+    height: 16px;
+    width: 16px;
+}
+
+.fondo {
+    height: 128px;
+    width: 128px;
+    margin: auto;
+    background-color: red;
+    display: grid;
+    grid-template-rows: repeat(6, 1fr);
+    grid-template-columns: repeat(8, 1fr);
+}
+
+.grass {
+    background-image: url(img/asset.png);
+    background-repeat: no-repeat;
+    background-position-x: -86px;
+    background-position-y: -86px;
+}
+
+.water5 {
+    background-image: url(img/asset.png);
+    background-repeat: no-repeat;
+    background-position-x: -18px;
+    background-position-y: -35px;
+}
+
+.bushgreen {
+    background-image: url(img/asset.png);
+    background-repeat: no-repeat;
+    background-position-x: -69px;
+    background-position-y: -52px;
+}
+
+.rock6{
+    background-image: url(img/asset.png);
+    background-repeat: no-repeat;
+    background-position-x: -69px;
+    background-position-y: -35px;
+}
