@@ -14,7 +14,9 @@
 
     <div class="tablero">
 
-        <?php foreach ($tablero as $fila): ?>
+    <?php /** @var array $tablero */ ?>
+
+        <?php foreach ($tablero as $fila): ?>   
 
             <?php foreach ($fila as $casilla): ?>
 
