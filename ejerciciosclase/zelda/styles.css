@@ -1,0 +1,223 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 30px;
+
+  background-color: red;
+}
+
+.tablero {
+  display: grid;
+
+  grid-template-columns: repeat(6, 64px);
+  grid-template-rows: repeat(8, 64px);
+
+  width: 384px;
+  height: 512px;
+
+  margin: 0 auto;
+}
+
+.tile {
+  width: 64px;
+  height: 64px;
+
+  background-image: url("/ejerciciosclase/zelda/img/sprites.png");
+  background-repeat: no-repeat;
+  background-size: 384px 512px;
+}
+
+.tile-bridge1 {
+  background-position: 0 0;
+}
+
+.tile-downstairs {
+  background-position: -64px 0;
+}
+
+.tile-upstairs {
+  background-position: -128px 0;
+}
+
+.tile-sand1 {
+  background-position: -192px 0;
+}
+
+.tile-sand2 {
+  background-position: -256px 0;
+}
+
+.tile-sand3 {
+  background-position: -320px 0;
+}
+
+.tile-water1 {
+  background-position: 0 -64px;
+}
+
+.tile-water2 {
+  background-position: -64px -64px;
+}
+
+.tile-water3 {
+  background-position: -128px -64px;
+}
+
+.tile-rock1 {
+  background-position: -192px -64px;
+}
+
+.tile-rock2 {
+  background-position: -256px -64px;
+}
+
+.tile-rock3 {
+  background-position: -320px -64px;
+}
+
+.tile-water4 {
+  background-position: 0 -128px;
+}
+
+.tile-water5 {
+  background-position: -64px -128px;
+}
+
+.tile-water6 {
+  background-position: -128px -128px;
+}
+
+.tile-rock4 {
+  background-position: -192px -128px;
+}
+
+.tile-rock5 {
+  background-position: -256px -128px;
+}
+
+.tile-rock6 {
+  background-position: -320px -128px;
+}
+
+.tile-water7 {
+  background-position: 0 -192px;
+}
+
+.tile-water8 {
+  background-position: -64px -192px;
+}
+
+.tile-water9 {
+  background-position: -128px -192px;
+}
+
+.tile-rock7 {
+  background-position: -192px -192px;
+}
+
+.tile-greenbush {
+  background-position: -256px -192px;
+}
+
+.tile-statue {
+  background-position: -320px -192px;
+}
+
+.tile-sand_water1 {
+  background-position: 0 -256px;
+}
+
+.tile-sand_water2 {
+  background-position: -64px -256px;
+}
+
+.tile-sand_water3 {
+  background-position: -128px -256px;
+}
+
+.tile-sand_water4 {
+  background-position: -192px -256px;
+}
+
+.tile-brownbush {
+  background-position: -256px -256px;
+}
+
+.tile-tombstone {
+  background-position: -320px -256px;
+}
+
+.tile-redrock1 {
+  background-position: 0 -320px;
+}
+
+.tile-redrock2 {
+  background-position: -64px -320px;
+}
+
+.tile-redrock3 {
+  background-position: -128px -320px;
+}
+
+.tile-redrock4 {
+  background-position: -192px -320px;
+}
+
+.tile-whitebush {
+  background-position: -256px -320px;
+}
+
+.tile-grass {
+  background-position: -320px -320px;
+}
+
+.tile-redrock5 {
+  background-position: 0 -384px;
+}
+
+.tile-redrock6 {
+  background-position: -64px -384px;
+}
+
+.tile-redrock7 {
+  background-position: -128px -384px;
+}
+
+.tile-greyrock1 {
+  background-position: -192px -384px;
+}
+
+.tile-greyrock2 {
+  background-position: -256px -384px;
+}
+
+.tile-greyrock3 {
+  background-position: -320px -384px;
+}
+
+.tile-greysand {
+  background-position: 0 -448px;
+}
+
+.tile-bridge2 {
+  background-position: -64px -448px;
+}
+
+.tile-greyrock4 {
+  background-position: -128px -448px;
+}
+
+.tile-greyrock5 {
+  background-position: -192px -448px;
+}
+
+.tile-greyrock6 {
+  background-position: -256px -448px;
+}
+
+.tile-greyrock7 {
+  background-position: -320px -448px;
+}
