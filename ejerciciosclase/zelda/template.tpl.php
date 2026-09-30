@@ -12,11 +12,13 @@
 
 <body>
 
+    <h1>RDR2 > TODO</h1>
+
     <div class="tablero">
 
-    <?php /** @var array $tablero */ ?>
+        <?php /** @var array $tablero */ ?>
 
-        <?php foreach ($tablero as $fila): ?>   
+        <?php foreach ($tablero as $fila): ?>
 
             <?php foreach ($fila as $casilla): ?>
 
