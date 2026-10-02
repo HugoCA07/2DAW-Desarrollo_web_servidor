@@ -14,6 +14,13 @@
 
     <h1>RDR2 > TODO</h1>
 
+    <div class="movimiento">
+        <a href="">Arriba</a>
+        <a href="">Izquierda</a>
+        <a href="">Derecha</a>
+        <a href="">Abajo</a>
+    </div>
+
     <div class="tablero">
 
         <?php /** @var array $tablero */ ?>
