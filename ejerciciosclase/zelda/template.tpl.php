@@ -12,29 +12,40 @@
 
 <body>
 
+    <?php /** @var array $tablero */ ?>
+    <?php /** @var int $link_pos_x */ ?>
+    <?php /** @var int $link_pos_y */ ?>
+
     <h1>RDR2 > TODO</h1>
 
     <div class="movimiento">
-        <a href="">Arriba</a>
-        <a href="">Izquierda</a>
-        <a href="">Derecha</a>
-        <a href="">Abajo</a>
+        <a href="<?php
+                    if (($link_pos_y - 1) !== -1) {
+                        echo "index.php?link_pos_x=" . $link_pos_x . "&link_pos_y=" . ($link_pos_y - 1);
+                    }
+                    ?>">Arriba</a>
+        <a href="<?php if (($link_pos_y + 1) !== 32) {
+                        echo "index.php?link_pos_x=" . $link_pos_x . "&link_pos_y=" . ($link_pos_y + 1);
+                    } ?>">Abajo</a>
+        <a href="<?php if (($link_pos_x - 1) !== -1) {
+                        echo "index.php?link_pos_x=" . ($link_pos_x - 1) . "&link_pos_y=" . $link_pos_y;
+                    } ?>">Izquierda</a>
+        <a href="<?php if (($link_pos_x + 1) !== 32) {
+                        echo "index.php?link_pos_x=" . ($link_pos_x + 1) . "&link_pos_y=" . $link_pos_y;
+                    } ?>">Derecha</a>
     </div>
 
-    <div class="tablero">
 
-        <?php /** @var array $tablero */ ?>
-        <?php /** @var int $link_pos_x */ ?>
-        <?php /** @var int $link_pos_y */ ?>
+    <div class="tablero">
 
         <?php foreach ($tablero as $fila): ?>
 
             <?php foreach ($fila as $casilla): ?>
 
 
-                <?php 
+                <?php
                 if ($link_pos_x === $contador_columnas && $link_pos_y === $contador_filas) {
-                    echo 
+                    echo
                     '<div class="tile tile-' . $casilla . ' link">
                         <img src="img/link.png" alt="Link">
                     </div>';
