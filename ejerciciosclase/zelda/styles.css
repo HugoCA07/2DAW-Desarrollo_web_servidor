@@ -234,3 +234,15 @@ body h1{
 .tile-greyrock7 {
     background-position: -80px -112px;
 }
+
+.link {
+    height: 16px;
+    width: 16px;
+    display: inline-block;
+    width: 16px;
+}
+
+.link img {
+    width: 100%;
+    height: 100%;
+}

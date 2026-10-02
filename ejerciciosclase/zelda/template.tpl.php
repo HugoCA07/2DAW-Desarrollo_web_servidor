@@ -17,14 +17,32 @@
     <div class="tablero">
 
         <?php /** @var array $tablero */ ?>
+        <?php /** @var int $link_pos_x */ ?>
+        <?php /** @var int $link_pos_y */ ?>
 
         <?php foreach ($tablero as $fila): ?>
 
             <?php foreach ($fila as $casilla): ?>
 
-                <div class="tile tile-<?php echo $casilla; ?>"></div>
+
+                <?php 
+                if ($link_pos_x === $contador_columnas && $link_pos_y === $contador_filas) {
+                    echo 
+                    '<div class="tile tile-' . $casilla . ' link">
+                        <img src="img/link.png" alt="Link">
+                    </div>';
+                } else {
+                    echo '<div class="tile tile-' . $casilla . '"></div>';
+                }
+
+                ?>
+
+                <?php $contador_columnas++; ?>
 
             <?php endforeach; ?>
+
+            <?php $contador_columnas = 0; ?>
+            <?php $contador_filas++; ?>
 
         <?php endforeach; ?>
 
