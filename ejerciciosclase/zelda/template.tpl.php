@@ -15,22 +15,24 @@
     <?php /** @var array $tablero */ ?>
     <?php /** @var int $link_pos_x */ ?>
     <?php /** @var int $link_pos_y */ ?>
+    <?php /** @var int $filas */ ?>
+    <?php /** @var int $columnas */ ?>
 
     <h1>RDR2 > TODO</h1>
 
     <div class="movimiento">
         <a href="<?php
-                    if (($link_pos_y - 1) !== -1) {
+                    if (($link_pos_y - 1) !== -1 && str_contains($tablero[$link_pos_y - 1][$link_pos_x], 'water') !== true && str_contains($tablero[$link_pos_y - 1][$link_pos_x], 'rock') !== true) {
                         echo "index.php?link_pos_x=" . $link_pos_x . "&link_pos_y=" . ($link_pos_y - 1);
                     }
                     ?>">Arriba</a>
-        <a href="<?php if (($link_pos_y + 1) !== 32) {
+        <a href="<?php if (($link_pos_y + 1) !== $filas && str_contains($tablero[$link_pos_y + 1][$link_pos_x], 'water') !== true && str_contains($tablero[$link_pos_y + 1][$link_pos_x], 'rock') !== true) {
                         echo "index.php?link_pos_x=" . $link_pos_x . "&link_pos_y=" . ($link_pos_y + 1);
                     } ?>">Abajo</a>
-        <a href="<?php if (($link_pos_x - 1) !== -1) {
+        <a href="<?php if (($link_pos_x - 1) !== -1 && str_contains($tablero[$link_pos_y][$link_pos_x - 1], 'water') !== true && str_contains($tablero[$link_pos_y][$link_pos_x - 1], 'rock') !== true) {
                         echo "index.php?link_pos_x=" . ($link_pos_x - 1) . "&link_pos_y=" . $link_pos_y;
                     } ?>">Izquierda</a>
-        <a href="<?php if (($link_pos_x + 1) !== 32) {
+        <a href="<?php if (($link_pos_x + 1) !== $columnas && str_contains($tablero[$link_pos_y][$link_pos_x + 1], 'water') !== true && str_contains($tablero[$link_pos_y][$link_pos_x + 1], 'rock') !== true) {
                         echo "index.php?link_pos_x=" . ($link_pos_x + 1) . "&link_pos_y=" . $link_pos_y;
                     } ?>">Derecha</a>
     </div>
