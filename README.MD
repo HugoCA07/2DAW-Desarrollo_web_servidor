@@ -1,5 +1,5 @@
 # EJERCICIOS CLASE
-- Solo para ejercicios que se hagan en clase o no tengan nota, solo son meramente prácticos.
+- Solo para ejercicios que se hagan en clase/casa o no tengan nota.
 
 # UNIDADES
-- Ejercicios tanto practicos con nota como examenes, esa carpeta contiene todos los entregables.
+- Explicaciones de clase
