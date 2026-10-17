@@ -49,7 +49,7 @@ function pintarTabla()
 {
     $inputs = getInputs();
     // USA LA OTRA FUNCION PARA PINTAR (PINTA DIRECTAMENTE)
-    $tabla_reservas = leerReservas(__DIR__ . '/data/reservas.csv', $inputs);
+    $tabla_reservas = leerReservas(__DIR__ . '/../data/reservas.csv', $inputs);
 
     $resultado = '';
 

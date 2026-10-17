@@ -31,14 +31,9 @@ function getDatosFromReserva(string $rutaCSV)
 
 function pintarReserva()
 {
-    $reserva = getDatosFromReserva(__DIR__ . '/data/reservas.csv');
-
-    echo '<pre>';
-    print_r($reserva);
-    echo '</pre>';
+    $reserva = getDatosFromReserva(__DIR__ . '/../data/reservas.csv');
 
     $resultado = '';
-
 
     if (empty($reserva)) {
         $resultado .= '<h2>No hay reservas</h2>';
