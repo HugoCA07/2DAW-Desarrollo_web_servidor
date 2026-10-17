@@ -1,223 +1,263 @@
 * {
-  box-sizing: border-box;
+    box-sizing: border-box;
 }
 
 body {
-  margin: 0;
-  padding: 30px;
+    margin: 0;
+    padding: 30px;
+}
 
-  background-color: red;
+body h1{
+    font-family: 'Impact', 'Arial Black', sans-serif; 
+    font-size: 4rem; 
+    color: #E21B23; 
+    text-transform: uppercase; 
+    letter-spacing: 3px; 
+    font-weight: 900; 
+    text-shadow: 3px 3px 0px #000000;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+    margin-bottom: 20px;
 }
 
 .tablero {
-  display: grid;
+    display: grid;
 
-  grid-template-columns: repeat(6, 64px);
-  grid-template-rows: repeat(8, 64px);
+    grid-template-columns: repeat(32, 16px);
+    grid-template-rows: repeat(32, 16px);
 
-  width: 384px;
-  height: 512px;
+    width: 512px;
+    height: 512px;
 
-  margin: 0 auto;
+    margin: 0 auto;
 }
 
 .tile {
-  width: 64px;
-  height: 64px;
+    width: 16px;
+    height: 16px;
 
-  background-image: url("/ejerciciosclase/zelda/img/sprites.png");
-  background-repeat: no-repeat;
-  background-size: 384px 512px;
+    background-image: url("img/sprites.png");
+    background-repeat: no-repeat;
+    background-size: 96px 128px;
 }
 
 .tile-bridge1 {
-  background-position: 0 0;
+    background-position: 0 0;
 }
 
 .tile-downstairs {
-  background-position: -64px 0;
+    background-position: -16px 0;
 }
 
 .tile-upstairs {
-  background-position: -128px 0;
+    background-position: -32px 0;
 }
 
 .tile-sand1 {
-  background-position: -192px 0;
+    background-position: -48px 0;
 }
 
 .tile-sand2 {
-  background-position: -256px 0;
+    background-position: -64px 0;
 }
 
 .tile-sand3 {
-  background-position: -320px 0;
+    background-position: -80px 0;
 }
 
 .tile-water1 {
-  background-position: 0 -64px;
+    background-position: 0 -16px;
 }
 
 .tile-water2 {
-  background-position: -64px -64px;
+    background-position: -16px -16px;
 }
 
 .tile-water3 {
-  background-position: -128px -64px;
+    background-position: -32px -16px;
 }
 
 .tile-rock1 {
-  background-position: -192px -64px;
+    background-position: -48px -16px;
 }
 
 .tile-rock2 {
-  background-position: -256px -64px;
+    background-position: -64px -16px;
 }
 
 .tile-rock3 {
-  background-position: -320px -64px;
+    background-position: -80px -16px;
 }
 
 .tile-water4 {
-  background-position: 0 -128px;
+    background-position: 0 -32px;
 }
 
 .tile-water5 {
-  background-position: -64px -128px;
+    background-position: -16px -32px;
 }
 
 .tile-water6 {
-  background-position: -128px -128px;
+    background-position: -32px -32px;
 }
 
 .tile-rock4 {
-  background-position: -192px -128px;
+    background-position: -48px -32px;
 }
 
 .tile-rock5 {
-  background-position: -256px -128px;
+    background-position: -64px -32px;
 }
 
 .tile-rock6 {
-  background-position: -320px -128px;
+    background-position: -80px -32px;
 }
 
 .tile-water7 {
-  background-position: 0 -192px;
+    background-position: 0 -48px;
 }
 
 .tile-water8 {
-  background-position: -64px -192px;
+    background-position: -16px -48px;
 }
 
 .tile-water9 {
-  background-position: -128px -192px;
+    background-position: -32px -48px;
 }
 
 .tile-rock7 {
-  background-position: -192px -192px;
+    background-position: -48px -48px;
 }
 
 .tile-greenbush {
-  background-position: -256px -192px;
+    background-position: -64px -48px;
 }
 
 .tile-statue {
-  background-position: -320px -192px;
+    background-position: -80px -48px;
 }
 
 .tile-sand_water1 {
-  background-position: 0 -256px;
+    background-position: 0 -64px;
 }
 
 .tile-sand_water2 {
-  background-position: -64px -256px;
+    background-position: -16px -64px;
 }
 
 .tile-sand_water3 {
-  background-position: -128px -256px;
+    background-position: -32px -64px;
 }
 
 .tile-sand_water4 {
-  background-position: -192px -256px;
+    background-position: -48px -64px;
 }
 
 .tile-brownbush {
-  background-position: -256px -256px;
+    background-position: -64px -64px;
 }
 
 .tile-tombstone {
-  background-position: -320px -256px;
+    background-position: -80px -64px;
 }
 
 .tile-redrock1 {
-  background-position: 0 -320px;
+    background-position: 0 -80px;
 }
 
 .tile-redrock2 {
-  background-position: -64px -320px;
+    background-position: -16px -80px;
 }
 
 .tile-redrock3 {
-  background-position: -128px -320px;
+    background-position: -32px -80px;
 }
 
 .tile-redrock4 {
-  background-position: -192px -320px;
+    background-position: -48px -80px;
 }
 
 .tile-whitebush {
-  background-position: -256px -320px;
+    background-position: -64px -80px;
 }
 
 .tile-grass {
-  background-position: -320px -320px;
+    background-position: -80px -80px;
 }
 
 .tile-redrock5 {
-  background-position: 0 -384px;
+    background-position: 0 -96px;
 }
 
 .tile-redrock6 {
-  background-position: -64px -384px;
+    background-position: -16px -96px;
 }
 
 .tile-redrock7 {
-  background-position: -128px -384px;
+    background-position: -32px -96px;
 }
 
 .tile-greyrock1 {
-  background-position: -192px -384px;
+    background-position: -48px -96px;
 }
 
 .tile-greyrock2 {
-  background-position: -256px -384px;
+    background-position: -64px -96px;
 }
 
 .tile-greyrock3 {
-  background-position: -320px -384px;
+    background-position: -80px -96px;
 }
 
 .tile-greysand {
-  background-position: 0 -448px;
+    background-position: 0 -112px;
 }
 
 .tile-bridge2 {
-  background-position: -64px -448px;
+    background-position: -16px -112px;
 }
 
 .tile-greyrock4 {
-  background-position: -128px -448px;
+    background-position: -32px -112px;
 }
 
 .tile-greyrock5 {
-  background-position: -192px -448px;
+    background-position: -48px -112px;
 }
 
 .tile-greyrock6 {
-  background-position: -256px -448px;
+    background-position: -64px -112px;
 }
 
 .tile-greyrock7 {
-  background-position: -320px -448px;
+    background-position: -80px -112px;
+}
+
+.link {
+    height: 16px;
+    width: 16px;
+    display: inline-block;
+}
+
+.link img {
+    width: 100%;
+    height: 100%;
+}
+
+.movimiento {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    margin: 20px;
+}
+
+.movimiento a {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #007BFF;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    font-family: sans-serif;
 }

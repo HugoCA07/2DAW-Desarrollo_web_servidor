@@ -1,29 +1,40 @@
 <?php
 
-$tablero = array(
-    // Fila 1
-    array('bridge1', 'downstairs', 'upstairs', 'sand1', 'sand2', 'sand3'),
+function getTableroFromCsv(String $rutaCSV)
+{
+    $stream = fopen($rutaCSV, 'r');
+    $tablero = [];
 
-    // Fila 2
-    array('water1', 'water2', 'water3', 'rock1', 'rock2', 'rock3'),
 
-    // Fila 3
-    array('water4', 'water5', 'water6', 'rock4', 'rock5', 'rock6'),
+    if ($stream !== false) {
 
-    // Fila 4
-    array('water7', 'water8', 'water9', 'rock7', 'greenbush', 'statue'),
+        while (($fila = fgetcsv($stream)) !== false) {
+            $tablero[] = $fila;
+        }
 
-    // Fila 5
-    array('sand_water1', 'sand_water2', 'sand_water3', 'sand_water4', 'brownbush', 'tombstone'),
+        fclose($stream);
+    }
 
-    // Fila 6
-    array('redrock1', 'redrock2', 'redrock3', 'redrock4', 'whitebush', 'grass'),
+    return $tablero;
+}
 
-    // Fila 7
-    array('redrock5', 'redrock6', 'redrock7', 'greyrock1', 'greyrock2', 'greyrock3'),
+$tablero = getTableroFromCsv(__DIR__ . '/tablero.csv');
+$filas = count($tablero);
+$columnas = count($tablero[0]);
 
-    // Fila 8
-    array('greysand', 'bridge2', 'greyrock4', 'greyrock5', 'greyrock6', 'greyrock7')
-);
+$link_pos_x = filter_input(INPUT_GET, 'link_pos_x', FILTER_VALIDATE_INT);
+$link_pos_y = filter_input(INPUT_GET, 'link_pos_y', FILTER_VALIDATE_INT);
+
+if ($link_pos_x === null || $link_pos_x === false || $link_pos_x < 0 || $link_pos_x >= $columnas) {
+    $link_pos_x = 0;
+}
+
+if ($link_pos_y === null || $link_pos_y === false || $link_pos_y < 0 || $link_pos_y >= $filas) {
+    $link_pos_y = 0;
+}
+
+$contador_filas = 0;
+$contador_columnas = 0;
+
 
 include __DIR__ . '/template.tpl.php';
