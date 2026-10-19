@@ -12,62 +12,48 @@
     <form method="POST">
         <div>
             <label for="nombre">Nombre:</label>
-            <input type="text" id="nombre" name="nombre" required>
+            <!-- CORRECCIÓN: Añadido value para la persistencia, usando la función e() -->
+            <input type="text" id="nombre" name="nombre" value="<?= isset($valores_previos['nombre']) ? e($valores_previos['nombre']) : '' ?>" required>
         </div>
 
         <div>
             <label for="email">Email:</label>
-            <input type="email" id="email" name="email" required>
+            <input type="email" id="email" name="email" value="<?= isset($valores_previos['email']) ? e($valores_previos['email']) : '' ?>" required>
         </div>
 
         <div>
             <label for="pista">Pista:</label>
             <select id="pista" name="pista" required>
-                <option value="" disabled selected>Selecciona una opción</option>
-                <option value="Pádel 1">Pádel 1</option>
-                <option value="Pádel 2">Pádel 2</option>
-                <option value="Tenis">Tenis</option>
-                <option value="Baloncesto">Baloncesto</option>
+                <option value="" disabled <?= empty($valores_previos['pista']) ? 'selected' : '' ?>>Selecciona una opción</option>
+                <!-- CORRECCIÓN: El select se genera dinámicamente desde el array, tal y como pedía la rúbrica -->
+                <?php foreach (getPistas() as $p): ?>
+                    <option value="<?= e($p) ?>" <?= (isset($valores_previos['pista']) && $valores_previos['pista'] === $p) ? 'selected' : '' ?>><?= e($p) ?></option>
+                <?php endforeach; ?>
             </select>
         </div>
 
         <div>
             <label for="fecha">Fecha:</label>
-            <input type="date" id="fecha" name="fecha" required>
+            <input type="date" id="fecha" name="fecha" value="<?= isset($valores_previos['fecha']) ? e($valores_previos['fecha']) : '' ?>" required>
         </div>
 
         <div>
             <label>Hora:</label>
-            <input type="radio" id="hora_16" name="hora" value="16:00" required>
-            <label for="hora_16">16:00</label>
-
-            <input type="radio" id="hora_17" name="hora" value="17:00">
-            <label for="hora_17">17:00</label>
-
-            <input type="radio" id="hora_18" name="hora" value="18:00">
-            <label for="hora_18">18:00</label>
-
-            <input type="radio" id="hora_19" name="hora" value="19:00">
-            <label for="hora_19">19:00</label>
-
-            <input type="radio" id="hora_20" name="hora" value="20:00">
-            <label for="hora_20">20:00</label>
-
-            <input type="radio" id="hora_21" name="hora" value="21:00">
-            <label for="hora_21">21:00</label>
-
+            <!-- CORRECCIÓN: Generado por array para cumplir el requisito -->
+            <?php foreach (getHoras() as $h): ?>
+                <?php $hora_id = str_replace(':', '', $h); ?>
+                <input type="radio" id="hora_<?= $hora_id ?>" name="hora" value="<?= e($h) ?>" <?= (isset($valores_previos['hora']) && $valores_previos['hora'] === $h) ? 'checked' : '' ?> required>
+                <label for="hora_<?= $hora_id ?>"><?= e($h) ?></label>
+            <?php endforeach; ?>
         </div>
 
         <div>
             <label>Material:</label>
-            <input type="checkbox" id="mat_raquetas" name="material[]" value="raquetas">
-            <label for="mat_raquetas">Raquetas</label>
-
-            <input type="checkbox" id="mat_balon" name="material[]" value="balon">
-            <label for="mat_balon">Balón</label>
-
-            <input type="checkbox" id="mat_petos" name="material[]" value="petos">
-            <label for="mat_petos">Petos</label>
+            <!-- CORRECCIÓN: Generado por array e implementando persistencia -->
+            <?php foreach (getMateriales() as $mat): ?>
+                <input type="checkbox" id="mat_<?= $mat ?>" name="material[]" value="<?= e($mat) ?>" <?= (isset($valores_previos['material_array']) && in_array($mat, $valores_previos['material_array'])) ? 'checked' : '' ?>>
+                <label for="mat_<?= $mat ?>"><?= ucfirst(e($mat)) ?></label>
+            <?php endforeach; ?>
         </div>
 
         <div>

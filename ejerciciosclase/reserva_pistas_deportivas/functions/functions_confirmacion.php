@@ -1,5 +1,10 @@
 <?php
 
+function e($str)
+{
+    return htmlspecialchars((string)$str, ENT_QUOTES, 'UTF-8');
+}
+
 function getHashFromURL()
 {
     return filter_input(INPUT_GET, 'hashreserva', FILTER_UNSAFE_RAW);
@@ -29,34 +34,5 @@ function getDatosFromReserva(string $rutaCSV)
     return $resultado;
 }
 
-function pintarReserva()
-{
-    $reserva = getDatosFromReserva(__DIR__ . '/../data/reservas.csv');
-
-    $resultado = '';
-
-    if (empty($reserva)) {
-        $resultado .= '<h2>No hay reservas</h2>';
-    } else {
-        $resultado .= '<table>';
-        $resultado .= '<tr>';
-        $resultado .= '<th>Nombre</th>';
-        $resultado .= '<th>Email</th>';
-        $resultado .= '<th>Pista</th>';
-        $resultado .= '<th>Fecha</th>';
-        $resultado .= '<th>Hora</th>';
-        $resultado .= '<th>Material</th>';
-        $resultado .= '<th>Normas</th>';
-        $resultado .= '</tr>';
-        $resultado .= '<tr>';
-
-        foreach ($reserva as $dato) {
-            $resultado .= '<td>' . $dato . '</td>';
-        }
-        $resultado .= '</tr>';
-
-        $resultado .= '</table>';
-    }
-
-    echo $resultado;
-}
+// CORRECCIÓN: Se ha eliminado por completo la función pintarReserva(),
+// ya que getDatosFromReserva() ya nos da el array que necesitamos para la vista.
