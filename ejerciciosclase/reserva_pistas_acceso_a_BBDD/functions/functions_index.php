@@ -1,6 +1,6 @@
 <?php
 
-function e($str)
+function e(string $str)
 {
     return htmlspecialchars((string)$str, ENT_QUOTES, 'UTF-8');
 }
@@ -33,16 +33,17 @@ function leerReservas(array $inputs)
             ]
         );
 
-        $sqlstring = 'SELECT * FROM reservas';
+        $sqlstring = 'SELECT nombre, email, pista, date, hora, material, normas FROM reservas';
         $params = [];
 
-        if ($inputs[0] !== null && $inputs[1] === null) {
+        if (!empty($inputs[0]) && empty($inputs[1])) {
             $sqlstring .= ' WHERE pista = ?';
             $params[] = $inputs[0];
-        } else if ($inputs[0] === null && $inputs[1] !== null) {
+        } else if (empty($inputs[0]) && !empty($inputs[1])) {
             $sqlstring .= ' WHERE date = ?';
             $params[] = $inputs[1];
-        } else if ($inputs[0] !== null && $inputs[1] !== null) {
+            // Han rellenado ambos campos
+        } else if (!empty($inputs[0]) && !empty($inputs[1])) {
             $sqlstring .= ' WHERE pista = ? AND date = ?';
             $params[] = $inputs[0];
             $params[] = $inputs[1];
@@ -50,12 +51,12 @@ function leerReservas(array $inputs)
 
         $sqlstring .= ';';
 
-        $stmt = $pdo->prepare($sqlstring); // Esto devuelve un statement: comentarle al profe
-        $stmt->execute($params); // Ejecuta la consulta con los parametros de inputs que son las interrogaciones
+        $stmt = $pdo->prepare($sqlstring);
+        $stmt->execute($params);
 
         return $stmt->fetchAll();
     } catch (PDOException $e) {
-        echo e('<h1>Ha habido una exepción con la BBDD</h1>');
+        echo '<h1>Ha habido una excepción con la BBDD</h1>';
         return [];
     }
 }
