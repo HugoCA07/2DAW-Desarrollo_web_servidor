@@ -11,13 +11,13 @@ function getInputs()
     $filtrado_pista = filter_input(INPUT_GET, 'pista');
     $filtrado_fecha = filter_input(INPUT_GET, 'fecha');
 
-    array_push($inputs, $filtrado_pista);
-    array_push($inputs, $filtrado_fecha);
+    $inputs[] = $filtrado_pista;
+    $inputs[] = $filtrado_fecha;
 
     return $inputs;
 }
 
-function leerReservas(string $rutaCSV, array $inputs)
+function leerReservas(string $rutaCSV, array $inputs): array
 {
     if (!file_exists($rutaCSV) || ($stream = fopen($rutaCSV, 'r')) === false) {
         return [];
@@ -45,7 +45,7 @@ function leerReservas(string $rutaCSV, array $inputs)
 
 // CORRECCIÓN: Eliminamos la vieja función pintarTabla() que generaba HTML.
 // Ahora esta función solo sirve de puente para obtener los datos puros.
-function obtenerReservas($inputs)
+function obtenerReservas($inputs): array
 {
     return leerReservas(__DIR__ . '/../data/reservas.csv', $inputs);
 }
