@@ -1,34 +1,34 @@
 <?php
 
 // Creamos la función e()
-function e($str)
+function e($str): string
 {
     return htmlspecialchars((string)$str, ENT_QUOTES, 'UTF-8');
 }
 
 // Definimos las pistas, horas y materiales en Arrays
-function getPistas()
+function getPistas(): array
 {
     return ['Pádel 1', 'Pádel 2', 'Tenis', 'Baloncesto'];
 }
-function getHoras()
+function getHoras(): array
 {
     return ['16:00', '17:00', '18:00', '19:00', '20:00', '21:00'];
 }
-function getMateriales()
+function getMateriales(): array
 {
     return ['raquetas', 'balon', 'petos'];
 }
 
 // centralizamos la creación del Hash para no repetir código
-function generarHashReserva($fecha, $hora, $pista)
+function generarHashReserva($fecha, $hora, $pista): string
 {
     return hash("murmur3a", ($fecha . '_' . $hora . '_' . $pista));
 }
 
-function validarMateriales(string $material)
+function validarMateriales(string $material): ?string
 {
-    // CORRECCIÓN: Validamos usando el array centralizado
+    // Validamos usando el array centralizado
     $materialesValidos = getMateriales();
     return in_array($material, $materialesValidos) ? $material : null;
 }
@@ -130,12 +130,12 @@ function validarReserva()
                 $valores_reserva['pista']    ?? '',
                 $valores_reserva['fecha']    ?? '',
                 $valores_reserva['hora']     ?? '',
-                $valores_reserva['material'] ?? '',
                 'Confirmada'
             ];
 
             // Usamos la función refactorizada
             $hashreserva = generarHashReserva($valores_reserva['fecha'], $valores_reserva['hora'], $valores_reserva['pista']);
+            // TODO: SEGUIR CON LA COMPROBACIÓN DE LA BBDD SI EXISTE RESERVA
             $ruta_csv = __DIR__ . '/../data/reservas.csv';
 
             if (reservaExiste($ruta_csv, $hashreserva)) {
@@ -165,30 +165,30 @@ function validarReserva()
     return ['resultado' => $resultado, 'valores' => $valores_reserva, 'errores' => $errores];
 }
 
-function guardarReserva(array $valores_reserva, string $csv_ruta)
+function guardarReserva(array $valores_reserva, string $csv_ruta): void
 {
     $stream = fopen($csv_ruta, 'a');
     fputcsv($stream, $valores_reserva, ',');
     fclose($stream);
 }
 
-function reservaExiste(string $rutaCSV, string $hashreserva)
+function reservaExiste(array $credBBDD, string $hashreserva)
 {
-    if (!file_exists($rutaCSV) || ($stream = fopen($rutaCSV, 'r')) === false) {
-        return false;
-    }
+    try {
+        $pdo = new PDO(
+            $credBBDD['dsn'],
+            $credBBDD['username'],
+            $credBBDD['password'],
+            [
+                PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+                PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
+                PDO::ATTR_EMULATE_PREPARES => false,
+            ]
+        );
 
-    while (($fila = fgetcsv($stream)) !== false) {
-        if (isset($fila[2], $fila[3], $fila[4])) {
-            // usamos la función centralizada en lugar del string crudo
-            $hashFila = generarHashReserva($fila[3], $fila[4], $fila[2]);
-            if ($hashFila === $hashreserva) {
-                fclose($stream);
-                return true;
-            }
-        }
-    }
 
-    fclose($stream);
+    } catch (Exception $e){
+        echo $e->getMessage();
+    }
     return false;
 }
