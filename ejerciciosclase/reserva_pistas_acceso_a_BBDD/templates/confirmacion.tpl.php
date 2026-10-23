@@ -9,7 +9,7 @@
 </head>
 
 <body>
-    <!-- CORRECCIÓN: Renderizamos la información dependiendo de si $reserva existe o está vacía -->
+    <!-- renderizamos la información dependiendo de si $reserva existe o está vacía -->
     <?php if (empty($reserva)): ?>
         <h2>No se ha encontrado la reserva (Error 404)</h2>
     <?php else: ?>

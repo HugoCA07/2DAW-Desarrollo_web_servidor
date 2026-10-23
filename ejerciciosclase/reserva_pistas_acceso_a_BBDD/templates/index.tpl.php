@@ -26,7 +26,7 @@
         <button type="submit">Buscar</button>
     </form>
 
-    <!-- CORRECCIÓN: Toda la lógica de la tabla se genera aquí directamente en la vista -->
+    <!-- Toda la lógica de la tabla se genera aquí directamente en la vista -->
     <hr>
     <?php if (empty($tabla_reservas)): ?>
         <h2>No hay reservas</h2>

@@ -33,6 +33,3 @@ function getDatosFromReserva(string $rutaCSV)
 
     return $resultado;
 }
-
-// CORRECCIÓN: Se ha eliminado por completo la función pintarReserva(),
-// ya que getDatosFromReserva() ya nos da el array que necesitamos para la vista.

@@ -12,14 +12,14 @@ function getInputs()
     $filtrado_pista = filter_input(INPUT_GET, 'pista', FILTER_UNSAFE_RAW);
     $filtrado_fecha = filter_input(INPUT_GET, 'fecha', FILTER_UNSAFE_RAW);
 
-    array_push($inputs, $filtrado_pista);
-    array_push($inputs, $filtrado_fecha);
+    $inputs[] = $filtrado_pista;
+    $inputs[] = $filtrado_fecha;
 
     return $inputs;
 }
 
 // Coger todas las reservas o las filtradas desde la BBDD
-function leerReservas(array $inputs)
+function leerReservas(array $inputs): array
 {
     try {
         $pdo = new PDO(
@@ -61,7 +61,7 @@ function leerReservas(array $inputs)
     }
 }
 
-function obtenerReservas(array $inputs)
+function obtenerReservas(array $inputs): array
 {
     $inputs = getInputs();
     return leerReservas($inputs);

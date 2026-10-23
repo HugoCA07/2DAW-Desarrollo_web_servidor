@@ -2,10 +2,10 @@
 
 include __DIR__ . '/functions/functions_confirmacion.php';
 
-// CORRECCIÓN: Obtenemos el array de la reserva antes de incluir la vista.
+// Obtenemos el array de la reserva antes de incluir la vista.
 $reserva = getDatosFromReserva(__DIR__ . '/data/reservas.csv');
 
-// CORRECCIÓN: Comprobamos el estado HTTP aquí (lógica pura), antes de que el servidor envíe HTML.
+// Comprobamos el estado HTTP aquí, antes de enviar HTML.
 if (empty($reserva)) {
     http_response_code(404);
 }

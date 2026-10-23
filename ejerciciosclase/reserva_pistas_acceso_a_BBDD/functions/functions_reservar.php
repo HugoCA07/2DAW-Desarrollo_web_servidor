@@ -1,12 +1,12 @@
 <?php
 
-// CORRECCIÓN: Creamos la función e() para cumplir el requisito "Toda salida con e()" y evitar ataques XSS.
+// Creamos la función e()
 function e($str)
 {
     return htmlspecialchars((string)$str, ENT_QUOTES, 'UTF-8');
 }
 
-// CORRECCIÓN: Definimos las pistas, horas y materiales en Arrays (Requisito de la rúbrica)
+// Definimos las pistas, horas y materiales en Arrays
 function getPistas()
 {
     return ['Pádel 1', 'Pádel 2', 'Tenis', 'Baloncesto'];
@@ -20,7 +20,7 @@ function getMateriales()
     return ['raquetas', 'balon', 'petos'];
 }
 
-// CORRECCIÓN: Centralizamos la creación del Hash para no repetir código.
+// centralizamos la creación del Hash para no repetir código
 function generarHashReserva($fecha, $hora, $pista)
 {
     return hash("murmur3a", ($fecha . '_' . $hora . '_' . $pista));
@@ -56,7 +56,7 @@ function validarReserva()
             ]
         );
 
-        // CORRECCIÓN: Comprobamos que el nombre tenga entre 2 y 60 caracteres
+        // comprobamos que el nombre tenga entre 2 y 60 caracteres
         if ($nombre === "" || strlen($nombre) < 2 || strlen($nombre) > 60) {
             $resultado = false;
             $errores[] = "El campo nombre es obligatorio y debe tener entre 2 y 60 caracteres.";
@@ -71,7 +71,7 @@ function validarReserva()
             $valores_reserva['email'] = $email;
         }
 
-        // CORRECCIÓN: Validamos que la pista exista en nuestro Array
+        // validamos que la pista exista en nuestro Array
         if ($pista === "" || !in_array($pista, getPistas())) {
             $resultado = false;
             $errores[] = "Debes seleccionar una pista válida.";
@@ -79,7 +79,7 @@ function validarReserva()
             $valores_reserva['pista'] = $pista;
         }
 
-        // CORRECCIÓN: Validamos que la fecha sea válida, a partir de hoy y máximo 14 días.
+        // validamos que la fecha sea válida, a partir de hoy y máximo 14 días.
         if ($fecha === "") {
             $resultado = false;
             $errores[] = "La fecha de la reserva es obligatoria.";
@@ -97,7 +97,7 @@ function validarReserva()
             }
         }
 
-        // CORRECCIÓN: Validamos que la hora exista en nuestro Array
+        // Validamos que la hora exista en nuestro Array
         if ($hora === "" || !in_array($hora, getHoras())) {
             $resultado = false;
             $errores[] = "La hora de la reserva es obligatoria o no es válida.";
@@ -109,14 +109,14 @@ function validarReserva()
 
         if (!empty($materialesFiltrados)) {
             $valores_reserva['material'] = implode(', ', $materialesFiltrados);
-            // CORRECCIÓN: Guardamos el array original para marcar los checkboxes como marcados si hay error
+            // guardamos el array original para marcar los checkboxes como marcados si hay error
             $valores_reserva['material_array'] = $materialesFiltrados;
         } else {
             $valores_reserva['material'] = '';
             $valores_reserva['material_array'] = [];
         }
 
-        // CORRECCIÓN: Capturamos la validación de normas, era obligatoria
+        // capturamos la validación de normas
         $normas = filter_input(INPUT_POST, 'normas', FILTER_UNSAFE_RAW);
         if (!$normas) {
             $resultado = false;
@@ -134,7 +134,7 @@ function validarReserva()
                 'Confirmada'
             ];
 
-            // CORRECCIÓN: Usamos la función refactorizada
+            // Usamos la función refactorizada
             $hashreserva = generarHashReserva($valores_reserva['fecha'], $valores_reserva['hora'], $valores_reserva['pista']);
             $ruta_csv = __DIR__ . '/../data/reservas.csv';
 
@@ -143,26 +143,25 @@ function validarReserva()
                 $resultado = false;
             } else {
                 guardarReserva($linea_csv, $ruta_csv);
-                // CORRECCIÓN: PRG estricto pidiendo el código 303 en la cabecera
+                // Codigo 303 en la cabecera
                 header('Location: confirmacion.php?hashreserva=' . $hashreserva, true, 303);
                 exit;
             }
         }
 
         if (!$resultado && !empty($errores)) {
-            // CORRECCIÓN: Respondemos con el código HTTP 422 estipulado en la rúbrica si falla la validación
+            // Respondemos con el código HTTP 422 estipulado en la rúbrica si falla la validación
             http_response_code(422);
             echo '<h3>Se han encontrado los siguientes errores:</h3>';
             echo '<ul>';
             foreach ($errores as $error) {
-                // CORRECCIÓN: Escapamos los errores visualizados
                 echo '<li>' . e($error) . '</li>';
             }
             echo '</ul>';
         }
     }
 
-    // CORRECCIÓN: Retornamos los valores para pasarlos a la vista y hacerlos persistentes
+    // Retornamos los valores para pasarlos a la vista y hacerlos persistentes
     return ['resultado' => $resultado, 'valores' => $valores_reserva, 'errores' => $errores];
 }
 
@@ -181,7 +180,7 @@ function reservaExiste(string $rutaCSV, string $hashreserva)
 
     while (($fila = fgetcsv($stream)) !== false) {
         if (isset($fila[2], $fila[3], $fila[4])) {
-            // CORRECCIÓN: Usamos la función centralizada en lugar del string crudo
+            // usamos la función centralizada en lugar del string crudo
             $hashFila = generarHashReserva($fila[3], $fila[4], $fila[2]);
             if ($hashFila === $hashreserva) {
                 fclose($stream);
