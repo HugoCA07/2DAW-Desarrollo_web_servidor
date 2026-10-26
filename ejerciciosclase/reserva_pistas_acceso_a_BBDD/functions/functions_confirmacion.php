@@ -10,26 +10,51 @@ function getHashFromURL()
     return filter_input(INPUT_GET, 'hashreserva', FILTER_UNSAFE_RAW);
 }
 
-function getDatosFromReserva(string $rutaCSV)
+function generarHashReserva($fecha, $hora, $pista): string
+{
+    return hash("murmur3a", ($fecha . '_' . $hora . '_' . $pista));
+}
+
+function getDatosFromReserva($credBBDD): array
 {
     $hash_buscar = getHashFromURL();
     $resultado = [];
 
-    if (!file_exists($rutaCSV) || ($stream = fopen($rutaCSV, 'r')) === false) {
-        return false;
-    }
+    $pdo = new PDO(
+        $credBBDD['dsn'],
+        $credBBDD['username'],
+        $credBBDD['password'],
+        [
+            PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+            PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
+            PDO::ATTR_EMULATE_PREPARES => false,
+        ]
+    );
 
-    while (($fila = fgetcsv($stream)) !== false) {
-        if (isset($fila[2], $fila[3], $fila[4])) {
-            $hashFila = hash("murmur3a", ($fila[3] . '_' . $fila[4] . '_' . $fila[2]));
-            if ($hashFila === $hash_buscar) {
-                $resultado = $fila;
-                break;
+    $sqlstring = 'SELECT date, hora, pista FROM reservas;';
+
+    $stmt = $pdo->prepare($sqlstring);
+    $stmt->execute();
+    $valores_consulta = $stmt->fetchAll();
+
+    foreach ($valores_consulta as $valor) {
+        $horaFormateada = str_replace('.', ':', $valor['hora']);
+        $horaFormateada = substr($horaFormateada, 0, 5);
+
+        // TODO: ARREGLAR ESTA FUNCION PARA QUE DEVUELVA LOS DATOS DE LA RESERVA QUE QUIERO QUE SE VEAN
+        $hashreserva2 = generarHashReserva($valor['date'], $horaFormateada, $valor['pista']);
+        if ($hashreserva2 === $hash_buscar) {
+            $sqlstring = 'SELECT nombre, email, pista, date, hora, material, normas FROM reservas WHERE date = ? AND hora = ?;';
+            $stmt = $pdo->prepare($sqlstring);
+            $stmt->execute([$valor['date'], $valor['hora']]);
+            $stmt->fetchAll();
+            foreach ($valor as $dato) {
+                $resultado[] = $dato;
             }
         }
     }
 
-    fclose($stream);
+    echo '<pre>' . print_r($resultado, true) . '</pre>';
 
     return $resultado;
 }

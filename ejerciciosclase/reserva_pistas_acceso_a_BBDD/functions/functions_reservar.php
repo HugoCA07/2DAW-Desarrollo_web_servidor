@@ -11,10 +11,12 @@ function getPistas(): array
 {
     return ['Pádel 1', 'Pádel 2', 'Tenis', 'Baloncesto'];
 }
+
 function getHoras(): array
 {
     return ['16:00', '17:00', '18:00', '19:00', '20:00', '21:00'];
 }
+
 function getMateriales(): array
 {
     return ['raquetas', 'balon', 'petos'];
@@ -42,17 +44,17 @@ function validarReserva()
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         $nombre = trim(filter_input(INPUT_POST, 'nombre', FILTER_UNSAFE_RAW) ?? '');
-        $email  = trim(filter_input(INPUT_POST, 'email', FILTER_VALIDATE_EMAIL) ?? '');
-        $pista  = trim(filter_input(INPUT_POST, 'pista', FILTER_UNSAFE_RAW) ?? '');
-        $fecha  = trim(filter_input(INPUT_POST, 'fecha', FILTER_UNSAFE_RAW) ?? '');
-        $hora   = trim(filter_input(INPUT_POST, 'hora', FILTER_UNSAFE_RAW) ?? '');
+        $email = trim(filter_input(INPUT_POST, 'email', FILTER_VALIDATE_EMAIL) ?? '');
+        $pista = trim(filter_input(INPUT_POST, 'pista', FILTER_UNSAFE_RAW) ?? '');
+        $fecha = trim(filter_input(INPUT_POST, 'fecha', FILTER_UNSAFE_RAW) ?? '');
+        $hora = trim(filter_input(INPUT_POST, 'hora', FILTER_UNSAFE_RAW) ?? '');
         $materiales = filter_input(
             INPUT_POST,
             'material',
             FILTER_CALLBACK,
             [
                 'options' => 'validarMateriales',
-                'flags'   => FILTER_REQUIRE_ARRAY
+                'flags' => FILTER_REQUIRE_ARRAY
             ]
         );
 
@@ -124,25 +126,29 @@ function validarReserva()
         }
 
         if ($resultado) {
-            $linea_csv = [
-                $valores_reserva['nombre']   ?? '',
-                $valores_reserva['email']    ?? '',
-                $valores_reserva['pista']    ?? '',
-                $valores_reserva['fecha']    ?? '',
-                $valores_reserva['hora']     ?? '',
+            $reserva = [
+                $valores_reserva['nombre'] ?? '',
+                $valores_reserva['email'] ?? '',
+                $valores_reserva['pista'] ?? '',
+                $valores_reserva['fecha'] ?? '',
+                $valores_reserva['hora'] ?? '',
+                $valores_reserva['material'] ?? '',
                 'Confirmada'
             ];
 
             // Usamos la función refactorizada
             $hashreserva = generarHashReserva($valores_reserva['fecha'], $valores_reserva['hora'], $valores_reserva['pista']);
-            // TODO: SEGUIR CON LA COMPROBACIÓN DE LA BBDD SI EXISTE RESERVA
-            $ruta_csv = __DIR__ . '/../data/reservas.csv';
+            $pdo = [
+                'dsn' => 'mysql:host=localhost;dbname=reservapistas;charset=utf8mb4',
+                'username' => 'dwes',
+                'password' => 'abc123.',
+            ];
 
-            if (reservaExiste($ruta_csv, $hashreserva)) {
+            if (reservaExiste($pdo, $hashreserva)) {
                 $errores[] = 'Ya existe una reserva para esa pista en la fecha y hora seleccionadas.';
                 $resultado = false;
             } else {
-                guardarReserva($linea_csv, $ruta_csv);
+                guardarReserva($pdo, $reserva);
                 // Codigo 303 en la cabecera
                 header('Location: confirmacion.php?hashreserva=' . $hashreserva, true, 303);
                 exit;
@@ -165,14 +171,7 @@ function validarReserva()
     return ['resultado' => $resultado, 'valores' => $valores_reserva, 'errores' => $errores];
 }
 
-function guardarReserva(array $valores_reserva, string $csv_ruta): void
-{
-    $stream = fopen($csv_ruta, 'a');
-    fputcsv($stream, $valores_reserva, ',');
-    fclose($stream);
-}
-
-function reservaExiste(array $credBBDD, string $hashreserva)
+function guardarReserva(array $credBBDD, array $reserva): void
 {
     try {
         $pdo = new PDO(
@@ -186,8 +185,59 @@ function reservaExiste(array $credBBDD, string $hashreserva)
             ]
         );
 
+        $sqlstring = 'INSERT INTO reservas (nombre, email, pista, date, hora, material, normas) 
+                      VALUES (?, ?, ?, ?, ?, ?, ?);';
 
-    } catch (Exception $e){
+        $stmt = $pdo->prepare($sqlstring);
+
+        $stmt->execute([
+            $reserva[0],
+            $reserva[1],
+            $reserva[2],
+            $reserva[3],
+            $reserva[4],
+            $reserva[5],
+            'Confirmada'
+        ]);
+
+    } catch (Exception $e) {
+        echo "Error en la base de datos: ";
+    }
+}
+
+
+function reservaExiste(array $credBBDD, string $hashreserva): bool
+{
+    try {
+        $pdo = new PDO(
+            $credBBDD['dsn'],
+            $credBBDD['username'],
+            $credBBDD['password'],
+            [
+                PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+                PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
+                PDO::ATTR_EMULATE_PREPARES => false,
+            ]
+        );
+
+        $sqlstring = 'SELECT date, hora, pista FROM reservas;';
+
+        $stmt = $pdo->prepare($sqlstring);
+        $stmt->execute();
+        $valores_consulta = $stmt->fetchAll();
+
+        foreach ($valores_consulta as $valor) {
+            $horaFormateada = str_replace('.', ':', $valor['hora']);
+            $horaFormateada = substr($horaFormateada, 0, 5);
+
+            $hashreserva2 = generarHashReserva($valor['date'], $horaFormateada, $valor['pista']);
+            if ($hashreserva2 === $hashreserva) {
+                return true;
+            }
+        }
+
+        return false;
+    } catch (Exception $e) {
         echo $e->getMessage();
     }
     return false;

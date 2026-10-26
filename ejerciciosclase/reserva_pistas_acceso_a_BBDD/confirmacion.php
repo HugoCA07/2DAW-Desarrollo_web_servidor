@@ -3,7 +3,12 @@
 include __DIR__ . '/functions/functions_confirmacion.php';
 
 // Obtenemos el array de la reserva antes de incluir la vista.
-$reserva = getDatosFromReserva(__DIR__ . '/data/reservas.csv');
+$credBBDD = [
+    'dsn' => 'mysql:host=localhost;dbname=reservapistas;charset=utf8mb4',
+    'username' => 'dwes',
+    'password' => 'abc123.',
+];
+$reserva = getDatosFromReserva($credBBDD);
 
 // Comprobamos el estado HTTP aquí, antes de enviar HTML.
 if (empty($reserva)) {
