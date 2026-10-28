@@ -41,20 +41,15 @@ function getDatosFromReserva($credBBDD): array
         $horaFormateada = str_replace('.', ':', $valor['hora']);
         $horaFormateada = substr($horaFormateada, 0, 5);
 
-        // TODO: ARREGLAR ESTA FUNCION PARA QUE DEVUELVA LOS DATOS DE LA RESERVA QUE QUIERO QUE SE VEAN
         $hashreserva2 = generarHashReserva($valor['date'], $horaFormateada, $valor['pista']);
         if ($hashreserva2 === $hash_buscar) {
             $sqlstring = 'SELECT nombre, email, pista, date, hora, material, normas FROM reservas WHERE date = ? AND hora = ?;';
             $stmt = $pdo->prepare($sqlstring);
             $stmt->execute([$valor['date'], $valor['hora']]);
-            $stmt->fetchAll();
-            foreach ($valor as $dato) {
-                $resultado[] = $dato;
-            }
+            $resultado = $stmt->fetch();
+            echo '<pre>' . print_r($resultado, true) . '</pre>';
         }
     }
-
-    echo '<pre>' . print_r($resultado, true) . '</pre>';
 
     return $resultado;
 }
