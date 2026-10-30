@@ -14,11 +14,10 @@ body h1{
     text-transform: uppercase; 
     letter-spacing: 3px; 
     font-weight: 900; 
-    text-shadow: 3px 3px 0px #000000;
-    margin: 0;
+    text-shadow: 3px 3px 0 #000000;
     padding: 0;
     text-align: center;
-    margin-bottom: 20px;
+    margin: 0 0 20px;
 }
 
 .tablero {
@@ -37,7 +36,7 @@ body h1{
     width: 16px;
     height: 16px;
 
-    background-image: url("img/sprites.png");
+    background-image: url("../img/sprites.png");
     background-repeat: no-repeat;
     background-size: 96px 128px;
 }
@@ -63,6 +62,18 @@ body h1{
 }
 
 .tile-sand3 {
+    background-position: -80px 0;
+}
+
+.tile-sand4 {
+    background-position: -48px 0;
+}
+
+.tile-sand5 {
+    background-position: -64px 0;
+}
+
+.tile-sand6 {
     background-position: -80px 0;
 }
 
@@ -252,7 +263,7 @@ body h1{
     margin: 20px;
 }
 
-.movimiento a {
+.movimiento form {
     display: inline-block;
     padding: 10px 20px;
     background-color: #007BFF;
@@ -260,4 +271,17 @@ body h1{
     text-decoration: none;
     border-radius: 5px;
     font-family: sans-serif;
+}
+
+.movimiento button {
+    color: white;
+    background-color: red;
+    border: none;
+    cursor: pointer;
+    padding: 10px;
+    border-radius: 8px  ;
+}
+
+.movimiento button:hover {
+    background-color: blue;
 }
