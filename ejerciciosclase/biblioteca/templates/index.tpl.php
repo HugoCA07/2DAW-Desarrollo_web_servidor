@@ -45,7 +45,7 @@
                 </td>
                 <td>
                     <form method="POST" action="borrar">
-                        <button type="submit">Borrar</button>
+                        <button type="submit" value="true">Borrar</button>
                     </form>
                 </td>
             </tr>

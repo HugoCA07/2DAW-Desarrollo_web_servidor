@@ -124,11 +124,15 @@ function cambiarDisponible(PDO $pdo, int $id,int $disponible): int
 
 function borrarLibro(PDO $pdo, int $id): int
 {
-    $sql = "DELETE FROM libros WHERE id = :id";
-    $stmt = $pdo->prepare($sql);
-    $stmt->execute([
-        ':id' => $id,
-    ]);
+    try {
+        $sql = "DELETE FROM libros WHERE id = :id AND disponible = 1";
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute([
+            ':id' => $id,
+        ]);
+        return $stmt->rowCount();
 
-    return $stmt->rowCount();
+    } catch (PDOException) {
+        return -1;
+    }
 }
