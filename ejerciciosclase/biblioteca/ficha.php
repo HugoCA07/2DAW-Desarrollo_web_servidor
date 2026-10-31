@@ -4,7 +4,7 @@ include __DIR__ . '/functions/functions.php';
 
 $pdo = conexion();
 
-if (isset($_GET['id'])) {
+if (isset($_GET['id']) && is_numeric($_GET['id'])) {
     $id = $_GET['id'];
     if (obtenerlibro($pdo,$id)){
         $libro = obtenerlibro($pdo,$id);

@@ -100,3 +100,24 @@ function insertarLibro(PDO $pdo, array $datos): int
         return -1;
     }
 }
+
+/**
+ * @param PDO $pdo
+ * @param int $id
+ * @param int $disponible
+ * @return int es el numero de filas afectadas
+ * Sirve para cambiar disponibilidad de libros
+ */
+function cambiarDisponible(PDO $pdo, int $id,int $disponible): int
+{
+
+    $sql = "UPDATE libros SET disponible = :disponible WHERE id = :id AND disponible = :disponible";
+
+    $stmt = $pdo->prepare($sql);
+    $stmt->execute([
+        ':disponible' => $disponible,
+        ':id' => $id,
+    ]);
+
+    return $stmt->rowCount();
+}
