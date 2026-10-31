@@ -16,6 +16,7 @@
             <input type="text" name="autor" placeholder="Autor del libro">
             <input type="number" name="anio" placeholder="Año del libro">
             <input type="text" name="genero" placeholder="Género del libro">
+            <button type="submit">Añadir</button>
         </label>
     </form>
 </body>
