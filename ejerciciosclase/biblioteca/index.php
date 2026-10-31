@@ -6,7 +6,12 @@ $dbh = conexion();
 
 echo "<h2> LIBROS DISPONIBLES: " . contarDisponibles($dbh) . "</h2>";
 
-$inputs = leerInputs();
+if (leerInputs()) {
+    $inputs = leerInputs();
+} else {
+    $inputs = ['genero' => 'todos'];
+}
+
 $libros = listarLibros($dbh, $inputs['genero']);
 
 include __DIR__ . "/templates/index.tpl.php";
