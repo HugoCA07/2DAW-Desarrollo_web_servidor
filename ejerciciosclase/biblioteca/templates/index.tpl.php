@@ -50,5 +50,6 @@
         <?php endif; ?>
     </table>
     <a href="nuevo.php">AÑADIR UN LIBRO</a>
+    <a href="ficha.php">BUSCAR UN LIBRO POR ID</a>
 </body>
 </html>

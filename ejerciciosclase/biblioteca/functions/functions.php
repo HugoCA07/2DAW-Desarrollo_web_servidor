@@ -92,9 +92,8 @@ function insertarLibro(PDO $pdo, array $datos): int
 
             return (int)$pdo->lastInsertId();
 
-        } catch (PDOException $e) {
-            echo "Ya existe un libro con ese isbn";
-            echo $e->getMessage();
+        } catch (PDOException) {
+            echo "<h1>Ya existe un libro con ese isbn</h1>\n";
             return -1;
         }
     } else {

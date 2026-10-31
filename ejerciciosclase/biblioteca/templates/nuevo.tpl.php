@@ -20,5 +20,7 @@
             <button type="submit">Añadir</button>
         </label>
     </form>
+    <a href="index.php">VER LOS LIBROS QUE HAY</a>
+    <a href="ficha.php">BUSCAR UN LIBRO POR ID</a>
 </body>
 </html>
