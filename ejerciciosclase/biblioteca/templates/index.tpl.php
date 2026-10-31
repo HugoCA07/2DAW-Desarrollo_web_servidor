@@ -48,6 +48,6 @@
             <h1>No hay libros de ese genero</h1>
         <?php endif; ?>
     </table>
-    <a href="<?php header('Location: nuevo.php', true, 303); ?>">AÑADIR UN LIBRO</a>
+    <a href="nuevo.php">AÑADIR UN LIBRO</a>
 </body>
 </html>
