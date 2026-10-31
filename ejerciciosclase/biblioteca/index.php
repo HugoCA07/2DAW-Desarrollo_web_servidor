@@ -9,7 +9,7 @@ echo "<h2> LIBROS DISPONIBLES: " . contarDisponibles($dbh) . "</h2>";
 if (leerInputs()) {
     $inputs = leerInputs();
 } else {
-    $inputs = ['genero' => 'todos'];
+    $inputs = ['genero' => 'Todos'];
 }
 
 $libros = listarLibros($dbh, $inputs['genero']);
