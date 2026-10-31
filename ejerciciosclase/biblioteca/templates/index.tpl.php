@@ -45,7 +45,9 @@
                 </td>
                 <td>
                     <form method="POST" action="accion.php">
-                        <button type="submit" name='borrar' value="true">Borrar</button>
+                        <input type="hidden" name="id" value="<?php echo htmlspecialchars($libro['id']); ?>">
+
+                        <button type="submit" name="borrar">Borrar</button>
                     </form>
                 </td>
             </tr>
