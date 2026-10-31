@@ -4,16 +4,17 @@ require_once __DIR__ . '/functions/functions.php';
 
 $pdo = conexion();
 
-$id = (int)$_POST['id'];
-$accion = $_POST['accion'];
+if (isset($_POST['accion'], $_POST['id'])) {
+    $accion = $_POST['accion'];
+    $id = (int)$_POST['id'];
+    $estadoNuevo = ($accion === 'prestar') ? 0 : 1;
+    $filas = cambiarDisponible($pdo, $id, $estadoNuevo);
 
-$estadoNuevo = ($accion === 'prestar') ? 0 : 1;
-
-$filas = cambiarDisponible($pdo, $id, $estadoNuevo);
-
-if ($filas === 0) {
-    echo "No se podido cambiar el estado.";
+    if ($filas === 0) {
+        echo "No se podido cambiar el estado.";
+    }
 }
+
 
 if ($_POST['borrar']) {
     if (borrarLibro($pdo, $id) === 0) {

@@ -45,7 +45,7 @@
                 </td>
                 <td>
                     <form method="POST" action="accion.php">
-                        <button type="submit" value="true">Borrar</button>
+                        <button type="submit" name='borrar' value="true">Borrar</button>
                     </form>
                 </td>
             </tr>
