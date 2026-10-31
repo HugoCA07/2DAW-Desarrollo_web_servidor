@@ -18,7 +18,7 @@
         </label>
     </form>
     <table>
-        <?php if ($libro): ?>
+        <?php if (isset($libro)): ?>
             <tr>
                 <th>Título</th>
                 <th>Autor</th>
