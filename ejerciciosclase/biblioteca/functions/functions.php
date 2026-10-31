@@ -82,6 +82,7 @@ function leerInputs(): false|array
  * Mete un libro nuevo en la base de datos con disponibilidad 1, en caso de que no haya fallos
  */
 function insertarLibro(PDO $pdo, array $datos): int
+
 {
     if (!empty($datos)) {
         try {
@@ -92,7 +93,8 @@ function insertarLibro(PDO $pdo, array $datos): int
             return (int)$pdo->lastInsertId();
 
         } catch (PDOException $e) {
-            echo "Ha ocurrido un error con la Base de Datos";
+            echo "Ya existe un libro con ese isbn";
+            echo $e->getMessage();
             return -1;
         }
     } else {
