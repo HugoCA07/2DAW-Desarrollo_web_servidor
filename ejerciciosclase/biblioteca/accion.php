@@ -15,20 +15,21 @@ if (isset($_POST['accion'], $_POST['id'])) {
     }
 }
 
-if (isset($_POST['borrar']) && isset($_POST['id'])) {
-    $id = $_POST['id'];
+if (isset($_POST['borrar'], $_POST['id'])) {
+    $id = (int)$_POST['id'];
 
     $resultado = borrarLibro($pdo, $id);
 
     if ($resultado === 0) {
         echo '<h2>Ese libro no existe</h2>';
     } else if ($resultado === -1) {
-        echo '<h2>No se puede borrar: el libro tiene préstamos registrados</h2>';
+        echo '<h2>No se puede borrar: el libro tiene préstamos registrados o no está disponible</h2>';
+    } else if ($resultado === -2) {
+        echo '<h2>Error interno al intentar eliminar el libro</h2>';
     } else {
-        echo '<h2>Libro borrado</h2>';
+        echo '<h2>Libro borrado con éxito</h2>';
     }
 }
-?>
 
 ?>
 

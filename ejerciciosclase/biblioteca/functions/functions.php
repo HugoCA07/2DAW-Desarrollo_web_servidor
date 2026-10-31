@@ -122,17 +122,28 @@ function cambiarDisponible(PDO $pdo, int $id,int $disponible): int
     return $stmt->rowCount();
 }
 
-function borrarLibro(PDO $pdo, int $id): int
-{
+function borrarLibro(PDO $pdo, int $id): int {
     try {
-        $sql = "DELETE FROM libros WHERE id = :id AND disponible = 1";
-        $stmt = $pdo->prepare($sql);
-        $stmt->execute([
-            ':id' => $id,
-        ]);
-        return $stmt->rowCount();
+        $sqlCheck = "SELECT disponible FROM libros WHERE id = :id";
+        $stmtCheck = $pdo->prepare($sqlCheck);
+        $stmtCheck->execute([':id' => $id]);
+        $libro = $stmtCheck->fetch(PDO::FETCH_ASSOC);
+
+        if (!$libro) {
+            return 0;
+        }
+
+        if ($libro['disponible'] === 0) {
+            return -1;
+        }
+
+        $sqlDelete = "DELETE FROM libros WHERE id = :id";
+        $stmtDelete = $pdo->prepare($sqlDelete);
+        $stmtDelete->execute([':id' => $id]);
+
+        return 1;
 
     } catch (PDOException) {
-        return -1;
+        return -2;
     }
 }
