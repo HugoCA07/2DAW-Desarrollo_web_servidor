@@ -38,7 +38,7 @@
                     <td><?php echo htmlspecialchars($libro['autor']) ?></td>
                     <td><?php echo htmlspecialchars($libro['anio']) ?></td>
                     <td><?php echo htmlspecialchars($libro['genero']) ?></td>
-                    <td><?php echo ($libro['disponible'] == 1) ?
+                    <td><?php echo ($libro['disponible'] === 1) ?
                             htmlspecialchars("Disponible") :
                             htmlspecialchars("Prestado") ?>
                     </td>
@@ -48,6 +48,6 @@
             <h1>No hay libros de ese genero</h1>
         <?php endif; ?>
     </table>
-    <a href="../nuevo.php">AÑADIR UN LIBRO</a>
+    <a href="<?php header('Location: nuevo.php', true, 303); ?>">AÑADIR UN LIBRO</a>
 </body>
 </html>
