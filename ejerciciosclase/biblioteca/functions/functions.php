@@ -29,9 +29,7 @@ function conexion(): PDO|string
  */
 function contarDisponibles(PDO $pdo): int
 {
-    $consulta = $pdo->prepare("SELECT COUNT(*) FROM libros WHERE disponible = 1");
-    $consulta->execute();
-    return $consulta->fetchColumn();
+    return $pdo->query("SELECT COUNT(*) FROM libros WHERE disponible = 1")->fetchColumn();
 }
 
 /**
@@ -58,15 +56,13 @@ function listarLibros(PDO $pdo, ?string $genero = null): array
 {
     if (!empty($genero)) {
         if ($genero === "Todos") {
-            $consulta = $pdo->prepare("SELECT * FROM libros");
-            $consulta->execute();
+            $consulta = $pdo->query("SELECT * FROM libros");
         } else {
             $consulta = $pdo->prepare("SELECT * FROM libros WHERE genero = ?");
             $consulta->execute([$genero]);
         }
     } else {
-        $consulta = $pdo->prepare("SELECT * FROM libros ORDER BY titulo");
-        $consulta->execute();
+        $consulta = $pdo->query("SELECT * FROM libros ORDER BY titulo");
     }
     return $consulta->fetchAll();
 }
@@ -78,15 +74,28 @@ function listarLibros(PDO $pdo, ?string $genero = null): array
 function leerInputs(): false|array
 {
     $inputs = filter_input_array(INPUT_GET,FILTER_UNSAFE_RAW);
-    if ($inputs === null) {
-        return false;
-    } else {
-        return $inputs;
-    }
+    return $inputs ?? false;
 }
 
-// TODO: Hacer la función de meter libro
-//function insertarLibro(PDO $pdo, array $datos): int
-//{
-//
-//}
+/**
+ * @return int (Ultimo id de libro o -1 si algo falló)
+ * Mete un libro nuevo en la base de datos con disponibilidad 1, en caso de que no haya fallos
+ */
+function insertarLibro(PDO $pdo, array $datos): int
+{
+    if (!empty($datos)) {
+        try {
+            $sqlString = $pdo->prepare("INSERT INTO libros (isbn, titulo, autor, anio, genero) VALUES (:isbn, :titulo, :autor, :anio, :genero)");
+            $stmt = $pdo->prepare($sqlString);
+            $stmt->execute($datos);
+
+            return (int)$pdo->lastInsertId();
+
+        } catch (PDOException $e) {
+            echo "Ha ocurrido un error con la Base de Datos";
+            return -1;
+        }
+    } else {
+        return -1;
+    }
+}
