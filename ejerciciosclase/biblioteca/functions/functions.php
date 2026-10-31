@@ -111,7 +111,7 @@ function insertarLibro(PDO $pdo, array $datos): int
 function cambiarDisponible(PDO $pdo, int $id,int $disponible): int
 {
 
-    $sql = "UPDATE libros SET disponible = :disponible WHERE id = :id AND disponible = :disponible";
+    $sql = "UPDATE libros SET disponible = :disponible WHERE id = :id";
 
     $stmt = $pdo->prepare($sql);
     $stmt->execute([
