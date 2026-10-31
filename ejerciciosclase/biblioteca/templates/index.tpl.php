@@ -43,6 +43,11 @@
                             htmlspecialchars("Disponible") :
                             htmlspecialchars("Prestado") ?>
                 </td>
+                <td>
+                    <form method="POST" action="borrar">
+                        <button type="submit">Borrar</button>
+                    </form>
+                </td>
             </tr>
         <?php endforeach; ?>
     <?php else: ?>

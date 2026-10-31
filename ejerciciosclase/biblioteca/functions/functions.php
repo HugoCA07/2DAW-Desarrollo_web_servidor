@@ -121,3 +121,14 @@ function cambiarDisponible(PDO $pdo, int $id,int $disponible): int
 
     return $stmt->rowCount();
 }
+
+function borrarLibro(PDO $pdo, int $id): int
+{
+    $sql = "DELETE FROM libros WHERE id = :id";
+    $stmt = $pdo->prepare($sql);
+    $stmt->execute([
+        ':id' => $id,
+    ]);
+
+    return $stmt->rowCount();
+}

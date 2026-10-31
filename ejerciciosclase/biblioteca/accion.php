@@ -16,4 +16,5 @@ if ($filas === 0) {
 }
 ?>
 
+<link rel="stylesheet" href="https://cdn.simplecss.org/simple.css">
 <a href="index.php">Volver al listado</a>
