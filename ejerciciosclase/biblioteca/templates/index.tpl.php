@@ -50,16 +50,6 @@
     <?php endif; ?>
 </table>
 
-<form method="POST" action="accion.php">
-
-    <input type="hidden" name="id" value="<?php echo htmlspecialchars($libro['id']); ?>">
-    <?php if ($libro['disponible'] === 1): ?>
-        <button type="submit" name="accion" value="prestar">Prestar</button>
-    <?php else: ?>
-        <button type="submit" name="accion" value="devolver">Devolver</button>
-    <?php endif; ?>
-</form>
-
 <a href="nuevo.php">AÑADIR UN LIBRO</a>
 <a href="ficha.php">BUSCAR UN LIBRO POR ID</a>
 </body>

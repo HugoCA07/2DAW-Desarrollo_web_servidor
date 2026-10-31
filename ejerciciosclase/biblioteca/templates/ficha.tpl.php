@@ -40,6 +40,18 @@
         <h1>Libro no encontrado</h1>
     <?php endif; ?>
 </table>
+
+<form method="POST" action="accion.php">
+
+    <input type="hidden" name="id" value="<?php echo htmlspecialchars($libro['id']); ?>">
+    <?php if ($libro['disponible'] === 1): ?>
+        <button type="submit" name="accion" value="prestar">Prestar</button>
+    <?php else: ?>
+        <button type="submit" name="accion" value="devolver">Devolver</button>
+    <?php endif; ?>
+</form>
+
+
 <a href="nuevo.php">AÑADIR UN LIBRO</a>
 <a href="index.php">VER LOS LIBROS</a>
 </body>
