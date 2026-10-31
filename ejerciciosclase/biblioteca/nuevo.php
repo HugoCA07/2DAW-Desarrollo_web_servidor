@@ -3,15 +3,6 @@
 include __DIR__ . '/functions/functions.php';
 
 $datosLibro = $_POST;
-echo $datosLibro['isbn'];
-echo $datosLibro['titulo'];
-echo $datosLibro['autor'];
-echo $datosLibro['anio'];
-echo $datosLibro['genero'];
-
-echo  '<pre>';
-print_r($datosLibro);
-echo '</pre>';
 
 $pdo = conexion();
 

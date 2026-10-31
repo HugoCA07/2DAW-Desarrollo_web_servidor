@@ -86,7 +86,7 @@ function insertarLibro(PDO $pdo, array $datos): int
 {
     if (!empty($datos)) {
         try {
-            $sqlString = $pdo->prepare("INSERT INTO libros (isbn, titulo, autor, anio, genero) VALUES (:isbn, :titulo, :autor, :anio, :genero)");
+            $sqlString = "INSERT INTO libros (isbn, titulo, autor, anio, genero) VALUES (:isbn, :titulo, :autor, :anio, :genero)";
             $stmt = $pdo->prepare($sqlString);
             $stmt->execute($datos);
 
