@@ -1,5 +1,7 @@
 <?php
 
+include __DIR__ . '/functions/functions.php';
+
 $datosLibro = $_POST;
 echo $datosLibro['isbn'];
 echo $datosLibro['titulo'];
