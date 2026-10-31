@@ -44,7 +44,7 @@
                             htmlspecialchars("Prestado") ?>
                 </td>
                 <td>
-                    <form method="POST" action="borrar">
+                    <form method="POST" action="accion.php">
                         <button type="submit" value="true">Borrar</button>
                     </form>
                 </td>
