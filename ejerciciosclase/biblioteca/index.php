@@ -1,17 +1,19 @@
 <?php
 
-include __DIR__ . "/functions/functions.php";
+declare(strict_types=1);
+
+require_once __DIR__ . "/functions/functions.php";
 
 $dbh = conexion();
 
-echo "<h2> LIBROS DISPONIBLES: " . contarDisponibles($dbh) . "</h2>";
+// CAMBIO: antes se hacía echo aquí (salía antes del <!doctype>). Ahora se pasa a la plantilla.
+$disponibles = contarDisponibles($dbh);
 
-if (leerInputs()) {
-    $inputs = leerInputs();
-} else {
-    $inputs = ['genero' => 'Todos'];
-}
+// CAMBIO: leerInputs() se llamaba dos veces. Ahora una sola, y obtenerGeneroFiltro() evita el warning
+// cuando la URL no trae "genero" (por ejemplo ?foo=1).
+$inputs = leerInputs() ?: [];
+$generoActual = obtenerGeneroFiltro($inputs);
 
-$libros = listarLibros($dbh, $inputs['genero']);
+$libros = listarLibros($dbh, $generoActual);
 
 include __DIR__ . "/templates/index.tpl.php";
