@@ -2,7 +2,7 @@
 
 function dump($var): void
 {
-    echo '<pre>'.print_r($var,1).'</pre>';
+    echo '<pre>' . print_r($var, 1) . '</pre>';
 }
 
 function e(string $string): string
@@ -23,7 +23,7 @@ function conexion(): PDO
     );
 }
 
-function getTournamentsFromDB() : array|string
+function getTournamentsFromDB(): array
 {
 
     try {
