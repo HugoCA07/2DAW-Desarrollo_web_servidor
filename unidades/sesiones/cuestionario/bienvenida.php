@@ -50,7 +50,7 @@ function getResults(): null|false|array
     $pdo = conexion();
     if ($pdo !== null) {
         try {
-            $stmt = $pdo->prepare('SELECT * FROM resultados WHERE usuario_id = :usuario_id ORDER BY fecha DESC');
+            $stmt = $pdo->prepare("SELECT *, DATE_FORMAT(fecha, '%d/%m/%Y %H:%i') AS fecha_espanol  FROM resultados WHERE usuario_id = :usuario_id ORDER BY fecha DESC");
             $stmt->execute(['usuario_id' => $_SESSION['id']]);
             $resultados = $stmt->fetchAll();
             if ($resultados) {
@@ -86,6 +86,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 
 $results = getResults();
+$bestresult = 0;
 
 ?>
 
@@ -114,9 +115,28 @@ $results = getResults();
     <h2>Tus resultados anteriores</h2>
 
     <?php if (!empty($results) && is_array($results)): ?>
-        <?php foreach ($results as $result): ?>
-
-        <?php endforeach; ?>
+        <table>
+            <thead>
+                <tr>
+                    <th>Aciertos</th>
+                    <th>Preguntas respondidas</th>
+                    <th>Fecha</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach ($results as $result): ?>
+                    <?php if ($result['aciertos'] > $bestresult): ?>
+                        <?php $bestresult = $result['aciertos'] ?>
+                    <?php endif ?>
+                    <tr>
+                        <td><?= htmlspecialchars($result['aciertos']) ?></td>
+                        <td><?= htmlspecialchars($result['total_preguntas']) ?></td>
+                        <td><?= htmlspecialchars($result['fecha_espanol']) ?></td>
+                    </tr>
+                <?php endforeach; ?>
+            </tbody>
+            <legend>Tu mejor resultado han sido <?= htmlspecialchars($bestresult) ?> aciertos</legend>
+        </table>
     <?php else: ?>
         <p>No tienes ningún resultado todavía.</p>
     <?php endif; ?>
