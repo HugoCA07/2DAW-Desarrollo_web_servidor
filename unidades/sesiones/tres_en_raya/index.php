@@ -18,6 +18,10 @@ if (!isset($_SESSION['partida']['tablero'])) {
     $_SESSION['partida']['tablero'] = $partida;
 }
 
+if (!isset($isVictoria)){
+    $isVictoria = false;
+}
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (isset($_POST['celda'])) {
         $casilla = obtenercasilla($_POST['celda']);
@@ -32,9 +36,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 } else {
                     $_SESSION['partida']['turno'] = 'X';
                 }
+                header('Location: index.php',true,302);
+                exit;
             }
         }
     }
+}
+
+if (isset($_GET['reiniciar']) && $_GET['reiniciar'] === 'true') {
+    session_destroy();
+    header('Location: index.php',true,302);
+    exit;
 }
 
 include(__DIR__ . '/templates/index.tpl.php');

@@ -8,14 +8,13 @@ function dump(mixed $var): void
 function obtenercasilla(string $location): array
 {
     $casilla = explode("-", $location);
-    $casilla = [
+    return [
         'fila' => (int)$casilla[0],
         'columna' => (int)$casilla[1]
     ];
-    return $casilla;
 }
 
-function validarCasilla(array $casilla)
+function validarCasilla(array $casilla): bool
 {
     if (!empty($casilla)) {
         if ($casilla['fila'] > 3) {
@@ -32,16 +31,12 @@ function validarCasilla(array $casilla)
             }
         }
     }
+
+    return false;
 }
 
-// TODO: REHACER
-function comprobarVictoria(array $tablero)
+function comprobarHorizontales(array $tablero): bool
 {
-    if (!isset($tablero) || empty($tablero)) {
-        return false;
-    }
-
-    // VER SI ALGUNA FILA CONSIGUIÓ LAS 3 SEGUIDAS
     foreach ($tablero as $fila) {
         $contadorCasilla = 0;
         foreach ($fila as $casilla) {
@@ -56,7 +51,11 @@ function comprobarVictoria(array $tablero)
         }
     }
 
-    // VER SI ALGUNA COLUMNA CONSIGUIÓ LAS 3 SEGUIDAS
+    return false;
+}
+
+function comprobarVertical(array $tablero): bool
+{
     for ($col = 1; $col <= 3; $col++) {
         if (
             $tablero[1][$col] !== '' &&
@@ -66,6 +65,41 @@ function comprobarVictoria(array $tablero)
             return true;
         }
     }
+    return false;
+}
+
+function comprobarDiagonal(array $tablero): bool
+{
+    if (
+        $tablero[1][1] === $_SESSION['partida']['turno'] &&
+        $tablero[2][2] === $_SESSION['partida']['turno'] &&
+        $tablero[3][3] === $_SESSION['partida']['turno']
+    ) {
+        return true;
+    }
+
+    if (
+        $tablero[1][3] === $_SESSION['partida']['turno'] &&
+        $tablero[2][2] === $_SESSION['partida']['turno'] &&
+        $tablero[3][1] === $_SESSION['partida']['turno']
+    ) {
+        return true;
+    }
+
 
     return false;
 }
+
+function comprobarVictoria(array $tablero): bool
+{
+    if (empty($tablero)) {
+        return false;
+    }
+
+    if (comprobarHorizontales($tablero) || comprobarVertical($tablero) || comprobarDiagonal($tablero)) {
+        return true;
+    }
+
+    return false;
+}
+
